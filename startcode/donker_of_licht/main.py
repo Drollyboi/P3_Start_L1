@@ -10,7 +10,13 @@ def geocode(plaats):
     locatie = data["results"][0]
     return locatie["latitude"], locatie["longitude"]
 
+def is_het_donker(lat, lon):
+    url = "https://api.open-meteo.com/v1/forecast"
+    ...
 
+def check_licht():
+    ...
+    
 # --- GUI ---
 root = tk.Tk()
 root.title("Is het donker of licht buiten?")
