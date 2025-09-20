@@ -1,14 +1,15 @@
 import turtle
+import random
 
 
-MOGELIJKE_ITEMS = ["diamant", "gouden munt", "zilverstaaf", "robijn", "toverring"]
+MOGELIJKE_ITEMS = ["diamant", "gouden munt", "zilverstaaf", "robijn", "toverring", "kaas"]
 
 class Schat:
     def __init__(self):
-        self.item = None
-        self.x = None
-        self.y = None
-        self.gevonden = None
+        self.item = random.choice(MOGELIJKE_ITEMS)
+        self.x = random.randint(-200, 200)
+        self.y = random.randint(-200, 200)
+        self.gevonden = False
 
         # Maak de schat zichtbaar op de juiste plaats
         self.tekenaar = turtle.Turtle()

@@ -1,5 +1,7 @@
 import tkinter as tk
 import requests
+import datetime
+
 def geocode(plaats):
     url = "https://geocoding-api.open-meteo.com/v1/search"
     params = {"name": plaats, "count": 1, "language": "en", "format": "json"}
@@ -12,11 +14,34 @@ def geocode(plaats):
 
 def is_het_donker(lat, lon):
     url = "https://api.open-meteo.com/v1/forecast"
-    ...
+    params = {"latitude": lat, "longitude": lon, "daily": "sunrise,sunset", "timezone": "UTC"}
+    resp = requests.get(url, params)
+    data = resp.json()
+
+
+    zonsopkomst = data["daily"]["sunrise"][0]
+    zonsondergang = data["daily"]["sunset"][0]
+    huidige_tijd = datetime.datetime.utcnow().isoformat()
+    if huidige_tijd < zonsopkomst:
+        return True #donker
+    if huidige_tijd > zonsondergang:
+        return True #donker
+    return False #licht
 
 def check_licht():
-    ...
-    
+    # plaats = input('welke plaats?')
+    plaats = "Hasselt"
+
+    lat, lon = geocode(plaats)
+    if lat is None:
+        return
+    donker = is_het_donker(lat, lon)
+    if donker:
+        print("Het is donker")
+    else:
+        print('Het is licht')
+
+check_licht()
 # --- GUI ---
 root = tk.Tk()
 root.title("Is het donker of licht buiten?")

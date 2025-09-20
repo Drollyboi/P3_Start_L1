@@ -1,5 +1,6 @@
 import turtle
 from speler import Speler
+from schat import *
 
 # --- INITIALISATIE ---
 scherm = turtle.Screen()
@@ -14,11 +15,23 @@ schatten = []
 
 
 # Maak 3 schatten aan
-
+for i in range(3):
+    schatten.append(Schat())
 
 def controleer_schat():
-    """Kijk of speler bij een schat staat"""
-    pass
+    for schat in schatten:
+        if not schat.gevonden and schat.is_dichtbij(speler):
+            gevonden_items.append(schat.item)
+            print(f"Je hebt {schat.item} gevonden!")
+            schat.verdwijn()
+
+    if len(gevonden_items) == len(schatten):
+        print(f"De gevonden schatten zijn:")
+        for item in gevonden_items:
+            print(item)
+        scherm.bye()
+
+
 
 
 # ----------------------
